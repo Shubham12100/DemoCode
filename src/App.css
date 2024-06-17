@@ -181,8 +181,12 @@ h1 {
 
 
 .container {
+  padding: 20px;
   text-align: left;
   margin-top: 20px;
+  margin: 0 auto;
+  background-color: #fff;
+  color: #090000;
 }
  
 .todo-list {
@@ -196,16 +200,16 @@ h1 {
 .todo-list th,
 .todo-list td {
   padding: 10px;
-  border: 1px solid #2d2a2a;
+  border: 1px solid #040000;
 }
  
 .todo-list th {
-  background-color: #b5f3f2;
+  background-color: #b8f79b;
   background: repeating-linear-gradient(circle, #ff0000, #0000ff 20%);
 }
  
 .todo {
-  background-color: #bbfd16;
+  background-color: #11d8e6;
 }
  
 .completed {
@@ -215,7 +219,7 @@ h1 {
 .incompleted {
   background-color: #f7b0b0;
 }
- 
+
 .button-container {
   margin-bottom: 20px;
   text-align: center;
@@ -227,6 +231,19 @@ h1 {
   color: #f80a0a;
   background-color: #d9fe07;
 }
+
+input{
+  background-color: #f6e5c6;
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+
+select {
+  background-color: #f6e5c6;
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+
 
 .action-button {
   display: flex;
@@ -250,26 +267,33 @@ h1 {
  
 .update-button {
   padding: 5px 10px;
-  background-color: #45a049;
-  color: #070707fb;
+  background-color: #63e169;
+  color: #060000fb;
   border: 1px solid;
   cursor: pointer;
 }
  
 .update-button:hover {
   background-color: #389438;
+  opacity: 0.8;
+}
+
+.updating {
+  background-color: #f6e5c6;
+  border: 1px solid #ddd;
+  padding: 5px;
 }
  
 .delete-button {
   padding: 5px 10px;
-  background-color: #ff0000;
+  background-color: #fb3a3a;
   color: #070707fb;
   border: 1px solid;
   cursor: pointer;
 }
  
 .delete-button:hover {
-  background-color: #cc0000;
+  background-color: #fb3a3a;
 }
   
 .filter-container {
@@ -289,4 +313,14 @@ h1 {
   width: 100%;
   color:#090000;
   
+}
+.input-group {
+  margin-right: 15px;
+  display: inline-block;
+}
+
+.dark-mode {
+  background-color: #81edcebe;
+  color: #3605fb;
+  font-family: sans-serif;
 }
