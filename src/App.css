@@ -238,11 +238,6 @@ input{
   padding: 5px;
 }
 
-select {
-  background-color: #f6e5c6;
-  border: 1px solid #ddd;
-  padding: 5px;
-}
 
 
 .action-button {
@@ -278,15 +273,10 @@ select {
   opacity: 0.8;
 }
 
-.updating {
-  background-color: #f6e5c6;
-  border: 1px solid #ddd;
-  padding: 5px;
-}
  
 .delete-button {
   padding: 5px 10px;
-  background-color: #fb3a3a;
+  background-color: #f42f2f;
   color: #070707fb;
   border: 1px solid;
   cursor: pointer;
@@ -311,7 +301,7 @@ select {
   text-align: center;
   font-style: italic;
   width: 100%;
-  color:#090000;
+  color:#fd0303;
   
 }
 .input-group {
@@ -319,8 +309,77 @@ select {
   display: inline-block;
 }
 
-.dark-mode {
-  background-color: #81edcebe;
-  color: #3605fb;
-  font-family: sans-serif;
+.theme-cupcake {
+  background-color: #fff1e6;
+  color: #333;
 }
+ 
+.theme-dark {
+  background-color: #030000;
+  color: #fa0303;
+}
+ 
+.theme-light {
+  background-color: #f5f5f5;
+  color: #333;
+}
+ 
+.theme-bumblebee {
+  background-color: #fffbe6;
+  color: #333;
+}
+ 
+.theme-synthwave {
+  background-color: #2d2a55;
+  color: #fa62ae;
+}
+ 
+.theme-halloween {
+  background-color: #f0e68c;
+  color: #ff4500;
+}
+ 
+.theme-fantasy {
+  background-color: #ffebcd;
+  color: #8b0000;
+}
+ 
+.theme-dracula {
+  background-color: #282a36;
+  color: #a76ef7;
+}
+ 
+.theme-aqua {
+  background-color: #e0ffff;
+  color: #333;
+}
+ 
+.theme-luxury {
+  background-color: #f5f5dc;
+  color: #4b0082;
+}
+ 
+.theme-night {
+  background-color: #080808da;
+  color: #1706f9;
+}
+
+select {
+  background-color: #f6e5c6; /* Change this to your desired color */
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+ 
+select:focus {
+  outline: none;
+  border-color: #4CAF50; /* Change this to your desired focus color */
+}
+ 
+.updating {
+  background-color: #f6e5c6; /* Change this to your desired color */
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+
+

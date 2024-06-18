@@ -1537,9 +1537,249 @@ export default App;
 
 
 
+// import React, { useState, useEffect } from 'react';
+// import './App.css';
+
+// function App() {
+//   const [todos, setTodos] = useState([]);
+//   const [newTodoTitle, setNewTodoTitle] = useState('');
+//   const [newTodoStatus, setNewTodoStatus] = useState('');
+//   const [newTodoDate, setNewTodoDate] = useState('');
+//   const [newTodoPriority, setNewTodoPriority] = useState('');
+//   const [updatedTodoTitle, setUpdatedTodoTitle] = useState('');
+//   const [updatedTodoStatus, setUpdatedTodoStatus] = useState('');
+//   const [updatedTodoDate, setUpdatedTodoDate] = useState('');
+//   const [updatedTodoPriority, setUpdatedTodoPriority] = useState('');
+//   const [updatingTodoId, setUpdatingTodoId] = useState(null);
+//   const [filter, setFilter] = useState('All');
+//   const [searchQuery, setSearchQuery] = useState('');
+//   const [isDarkMode, setIsDarkMode] = useState(false);
+
+//   useEffect(() => {
+//     fetchTodos();
+//   }, []);
+
+//   const fetchTodos = () => {
+//     const storedTodos = JSON.parse(localStorage.getItem('todos')) || [];
+//     setTodos(storedTodos);
+//   };
+
+//   const saveTodos = (todos) => {
+//     localStorage.setItem('todos', JSON.stringify(todos));
+//     setTodos(todos);
+//   };
+
+//   const handleCreate = () => {
+//     if (!newTodoTitle || !newTodoStatus || !newTodoDate || !newTodoPriority) {
+//       alert("Please fill out all fields.");
+//       return;
+//     }
+//     const newTodoItem = {
+//       id: todos.length ? todos[todos.length - 1].id + 1 : 1,
+//       title: newTodoTitle,
+//       completed: newTodoStatus === 'Completed',
+//       date: newTodoDate,
+//       priority: newTodoPriority
+//     };
+//     const updatedTodos = [...todos, newTodoItem];
+//     saveTodos(updatedTodos);
+//     setNewTodoTitle('');
+//     setNewTodoStatus('');
+//     setNewTodoDate('');
+//     setNewTodoPriority('');
+//   };
+
+//   const handleUpdateButtonClick = (id, title, completed, date, priority) => {
+//     setUpdatingTodoId(id);
+//     setUpdatedTodoTitle(title);
+//     setUpdatedTodoStatus(completed ? 'Completed' : 'Incomplete');
+//     setUpdatedTodoDate(date);
+//     setUpdatedTodoPriority(priority);
+//   };
+
+//   const handleUpdate = () => {
+//     if (!updatedTodoTitle || !updatedTodoStatus || !updatedTodoDate || !updatedTodoPriority) {
+//       alert("Please fill out all fields.");
+//       return;
+//     }
+//     const updatedTodoItem = {
+//       id: updatingTodoId,
+//       title: updatedTodoTitle,
+//       completed: updatedTodoStatus === 'Completed',
+//       date: updatedTodoDate,
+//       priority: updatedTodoPriority
+//     };
+//     const updatedTodos = todos.map(todo =>
+//       todo.id === updatingTodoId ? updatedTodoItem : todo
+//     );
+//     saveTodos(updatedTodos);
+//     setUpdatingTodoId(null);
+//     setUpdatedTodoTitle('');
+//     setUpdatedTodoStatus('');
+//     setUpdatedTodoDate('');
+//     setUpdatedTodoPriority('');
+//   };
+
+//   const handleDelete = (id) => {
+//     const updatedTodos = todos.filter(todo => todo.id !== id);
+//     saveTodos(updatedTodos);
+//   };
+
+//   const toggleDarkMode = () => {
+//     setIsDarkMode(!isDarkMode);
+//   };
+
+//   return (
+//     <div className={`container ${isDarkMode ? 'dark-mode' : ''}`}>
+//       <button onClick={toggleDarkMode}>
+//         {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+//       </button>
+//       <h1>To-Do Data</h1>
+//       <div className="button-container">
+//         <label><strong>ToDo: </strong></label>
+//         <input
+//           type="text"
+//           placeholder="Enter your todo"
+//           value={newTodoTitle}
+//           onChange={(e) => setNewTodoTitle(e.target.value)}
+//         />
+//         <div className="input-group">
+//         <select value={newTodoStatus} onChange={(e) => setNewTodoStatus(e.target.value)}>
+//           <option value="">Select Status</option>
+//           <option value="Completed">Completed</option>
+//           <option value="Incomplete">Incomplete</option>
+//         </select>
+//         </div>
+//         <div className="input-group">
+//         <input
+//           type="date"
+//           value={newTodoDate}
+//           onChange={(e) => setNewTodoDate(e.target.value)}
+//         />
+//         </div>
+//         <div className="input-group">
+//         <select value={newTodoPriority} onChange={(e) => setNewTodoPriority(e.target.value)}>
+//           <option value="">Select Priority</option>
+//           <option value="Low">Low</option>
+//           <option value="Medium">Medium</option>
+//           <option value="High">High</option>
+//         </select>
+//         </div>
+//         <div className="input-group">
+//         <button className="update-button" onClick={handleCreate}>Create</button>
+//       </div>
+//       </div>
+//       <div className="filter-container">
+//         <label><strong>Status: </strong></label>
+//         <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+//           <option value="All">All</option>
+//           <option value="Completed">Completed</option>
+//           <option value="Incomplete">Incomplete</option>
+//         </select>
+//       </div>
+//       <div className="search-container">
+//         <label><strong>ToDo search: </strong></label>
+//         <input
+//           type="text"
+//           placeholder="Search todo..."
+//           value={searchQuery}
+//           onChange={(e) => setSearchQuery(e.target.value)}
+//         />
+//       </div>
+//       <table className="todo-list">
+//         <thead>
+//           <tr>
+//             <th>To-Do No.</th>
+//             <th>To-Do Name</th>
+//             <th>Completed Status</th>
+//             <th>Due Date</th>
+//             <th>Priority</th>
+//             <th>Action</th>
+//           </tr>
+//         </thead>
+//         <tbody>
+//           {todos
+//             .filter(todo => {
+//               if (filter === 'All') {
+//                 return todo.title.toLowerCase().includes(searchQuery.toLowerCase());
+//               } else if (filter === 'Completed') {
+//                 return todo.completed && todo.title.toLowerCase().includes(searchQuery.toLowerCase());
+//               } else {
+//                 return !todo.completed && todo.title.toLowerCase().includes(searchQuery.toLowerCase());
+//               }
+//             })
+//             .map((todo) => (
+//               <tr key={todo.id}>
+//                 <td>{todo.id}</td>
+//                 <td>{updatingTodoId === todo.id ? (
+//                   <input
+//                     type="text"
+//                     value={updatedTodoTitle}
+//                     onChange={(e) => setUpdatedTodoTitle(e.target.value)}
+//                   />
+//                 ) : (
+//                   todo.title
+//                 )}</td>
+//                 <td>{updatingTodoId === todo.id ? (
+//                   <select value={updatedTodoStatus} onChange={(e) => setUpdatedTodoStatus(e.target.value)} className="updating">
+//                     <option value="Completed">Completed</option>
+//                     <option value="Incomplete">Incomplete</option>
+//                   </select>
+//                 ) : (
+//                   todo.completed ? 'Completed' : 'Incomplete'
+//                 )}</td>
+//                 <td>{updatingTodoId === todo.id ? (
+//                   <input
+//                     type="date"
+//                     value={updatedTodoDate}
+//                     onChange={(e) => setUpdatedTodoDate(e.target.value)} className="updating"
+//                   />
+//                 ) : (
+//                   todo.date
+//                 )}</td>
+//                 <td>{updatingTodoId === todo.id ? (
+//                   <select value={updatedTodoPriority} onChange={(e) => setUpdatedTodoPriority(e.target.value)} className="updating">
+//                     <option value="Low">Low</option>
+//                     <option value="Medium">Medium</option>
+//                     <option value="High">High</option>
+//                   </select>
+//                 ) : (
+//                   todo.priority
+//                 )}</td>
+//                 <td className="action-button">
+//                   {updatingTodoId === todo.id ? (
+//                     <button className="update-button" onClick={handleUpdate}>Save</button>
+//                   ) : (
+//                     <button className="update-button" onClick={() => handleUpdateButtonClick(todo.id, todo.title, todo.completed, todo.date, todo.priority)}>Update</button>
+//                   )}
+//                   <button className="delete-button" onClick={() => handleDelete(todo.id)}>Delete</button>
+//                 </td>
+//               </tr>
+//             ))}
+//         </tbody>
+//       </table>
+//       {todos.filter(todo => {
+//         if (filter === 'All') {
+//           return todo.title.toLowerCase().includes(searchQuery.toLowerCase());
+//         } else if (filter === 'Completed') {
+//           return todo.completed && todo.title.toLowerCase().includes(searchQuery.toLowerCase());
+//         } else {
+//           return !todo.completed && todo.title.toLowerCase().includes(searchQuery.toLowerCase());
+//         }
+//       }).length === 0 && (
+//         <p className="search"><strong>No todo is found!</strong></p>
+//       )}
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+
 import React, { useState, useEffect } from 'react';
 import './App.css';
-
+ 
 function App() {
   const [todos, setTodos] = useState([]);
   const [newTodoTitle, setNewTodoTitle] = useState('');
@@ -1553,22 +1793,22 @@ function App() {
   const [updatingTodoId, setUpdatingTodoId] = useState(null);
   const [filter, setFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
+  const [theme, setTheme] = useState('theme-light');
+ 
   useEffect(() => {
     fetchTodos();
   }, []);
-
+ 
   const fetchTodos = () => {
     const storedTodos = JSON.parse(localStorage.getItem('todos')) || [];
     setTodos(storedTodos);
   };
-
+ 
   const saveTodos = (todos) => {
     localStorage.setItem('todos', JSON.stringify(todos));
     setTodos(todos);
   };
-
+ 
   const handleCreate = () => {
     if (!newTodoTitle || !newTodoStatus || !newTodoDate || !newTodoPriority) {
       alert("Please fill out all fields.");
@@ -1588,7 +1828,7 @@ function App() {
     setNewTodoDate('');
     setNewTodoPriority('');
   };
-
+ 
   const handleUpdateButtonClick = (id, title, completed, date, priority) => {
     setUpdatingTodoId(id);
     setUpdatedTodoTitle(title);
@@ -1596,7 +1836,7 @@ function App() {
     setUpdatedTodoDate(date);
     setUpdatedTodoPriority(priority);
   };
-
+ 
   const handleUpdate = () => {
     if (!updatedTodoTitle || !updatedTodoStatus || !updatedTodoDate || !updatedTodoPriority) {
       alert("Please fill out all fields.");
@@ -1610,7 +1850,7 @@ function App() {
       priority: updatedTodoPriority
     };
     const updatedTodos = todos.map(todo =>
-      todo.id === updatingTodoId ? updatedTodoItem : todo
+todo.id === updatingTodoId ? updatedTodoItem : todo
     );
     saveTodos(updatedTodos);
     setUpdatingTodoId(null);
@@ -1619,55 +1859,70 @@ function App() {
     setUpdatedTodoDate('');
     setUpdatedTodoPriority('');
   };
-
+ 
   const handleDelete = (id) => {
-    const updatedTodos = todos.filter(todo => todo.id !== id);
+const updatedTodos = todos.filter(todo => todo.id !== id);
     saveTodos(updatedTodos);
   };
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
+ 
+  const handleThemeChange = (e) => {
+    setTheme(e.target.value);
   };
-
+ 
   return (
-    <div className={`container ${isDarkMode ? 'dark-mode' : ''}`}>
-      <button onClick={toggleDarkMode}>
-        {isDarkMode ? 'Light Mode' : 'Dark Mode'}
-      </button>
+    <div className={`container ${theme}`}>
+      <div className="theme-selector">
+        <label htmlFor="theme"><strong>Choose Theme: </strong></label>
+        <select id="theme" value={theme} onChange={handleThemeChange}>
+          <option value="theme-cupcake">Cupcake</option>
+          <option value="theme-dark">Dark</option>
+          <option value="theme-light">Light</option>
+          <option value="theme-bumblebee">Bumblebee</option>
+          <option value="theme-synthwave">Synthwave</option>
+          <option value="theme-halloween">Halloween</option>
+          <option value="theme-fantasy">Fantasy</option>
+          <option value="theme-dracula">Dracula</option>
+          <option value="theme-aqua">Aqua</option>
+          <option value="theme-luxury">Luxury</option>
+          <option value="theme-night">Night</option>
+        </select>
+      </div>
       <h1>To-Do Data</h1>
       <div className="button-container">
-        <label><strong>ToDo: </strong></label>
-        <input
-          type="text"
-          placeholder="Enter your todo"
-          value={newTodoTitle}
-          onChange={(e) => setNewTodoTitle(e.target.value)}
-        />
         <div className="input-group">
-        <select value={newTodoStatus} onChange={(e) => setNewTodoStatus(e.target.value)}>
-          <option value="">Select Status</option>
-          <option value="Completed">Completed</option>
-          <option value="Incomplete">Incomplete</option>
-        </select>
+          <label><strong>ToDo: </strong></label>
+          <input
+            type="text"
+            placeholder="Enter your todo"
+            value={newTodoTitle}
+            onChange={(e) => setNewTodoTitle(e.target.value)}
+          />
         </div>
         <div className="input-group">
-        <input
-          type="date"
-          value={newTodoDate}
-          onChange={(e) => setNewTodoDate(e.target.value)}
-        />
+          <select value={newTodoStatus} onChange={(e) => setNewTodoStatus(e.target.value)}>
+            <option value="">Select Status</option>
+            <option value="Completed">Completed</option>
+            <option value="Incomplete">Incomplete</option>
+          </select>
         </div>
         <div className="input-group">
-        <select value={newTodoPriority} onChange={(e) => setNewTodoPriority(e.target.value)}>
-          <option value="">Select Priority</option>
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
-        </select>
+          <input
+            type="date"
+            value={newTodoDate}
+            onChange={(e) => setNewTodoDate(e.target.value)}
+          />
         </div>
         <div className="input-group">
-        <button className="update-button" onClick={handleCreate}>Create</button>
-      </div>
+          <select value={newTodoPriority} onChange={(e) => setNewTodoPriority(e.target.value)}>
+            <option value="">Select Priority</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+        </div>
+        <div className="input-group">
+          <button className="update-button" onClick={handleCreate}>Create</button>
+        </div>
       </div>
       <div className="filter-container">
         <label><strong>Status: </strong></label>
@@ -1710,35 +1965,45 @@ function App() {
             })
             .map((todo) => (
               <tr key={todo.id}>
-                <td>{todo.id}</td>
-                <td>{updatingTodoId === todo.id ? (
+              <td>{todo.id}</td>
+              <td>{updatingTodoId === todo.id ? (
                   <input
                     type="text"
+                    className="updating"
                     value={updatedTodoTitle}
                     onChange={(e) => setUpdatedTodoTitle(e.target.value)}
                   />
                 ) : (
                   todo.title
                 )}</td>
-                <td>{updatingTodoId === todo.id ? (
-                  <select value={updatedTodoStatus} onChange={(e) => setUpdatedTodoStatus(e.target.value)} className="updating">
+                 <td>{updatingTodoId === todo.id ? (
+                  <select
+                    className="updating"
+                    value={updatedTodoStatus}
+                    onChange={(e) => setUpdatedTodoStatus(e.target.value)}
+                  >
                     <option value="Completed">Completed</option>
                     <option value="Incomplete">Incomplete</option>
                   </select>
                 ) : (
                   todo.completed ? 'Completed' : 'Incomplete'
                 )}</td>
-                <td>{updatingTodoId === todo.id ? (
+                 <td>{updatingTodoId === todo.id ? (
                   <input
                     type="date"
+                    className="updating"
                     value={updatedTodoDate}
-                    onChange={(e) => setUpdatedTodoDate(e.target.value)} className="updating"
+                    onChange={(e) => setUpdatedTodoDate(e.target.value)}
                   />
                 ) : (
-                  todo.date
+                    todo.date
                 )}</td>
-                <td>{updatingTodoId === todo.id ? (
-                  <select value={updatedTodoPriority} onChange={(e) => setUpdatedTodoPriority(e.target.value)} className="updating">
+                  <td>{updatingTodoId === todo.id ? (
+                  <select
+                    className="updating"
+                    value={updatedTodoPriority}
+                    onChange={(e) => setUpdatedTodoPriority(e.target.value)}
+                  >
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
                     <option value="High">High</option>
@@ -1750,9 +2015,9 @@ function App() {
                   {updatingTodoId === todo.id ? (
                     <button className="update-button" onClick={handleUpdate}>Save</button>
                   ) : (
-                    <button className="update-button" onClick={() => handleUpdateButtonClick(todo.id, todo.title, todo.completed, todo.date, todo.priority)}>Update</button>
+                   <button className="update-button" onClick= {() => handleUpdateButtonClick(todo.id, todo.title, todo.completed, todo.date, todo.priority)}>Update</button>
                   )}
-                  <button className="delete-button" onClick={() => handleDelete(todo.id)}>Delete</button>
+                  <button className="delete-button" onClick= {() =>handleDelete(todo.id)}>Delete</button>
                 </td>
               </tr>
             ))}
@@ -1767,10 +2032,10 @@ function App() {
           return !todo.completed && todo.title.toLowerCase().includes(searchQuery.toLowerCase());
         }
       }).length === 0 && (
-        <p className="search"><strong>No todo is found!</strong></p>
+        <p className="search"><strong>your To-Do is empty!</strong></p>
       )}
     </div>
   );
 }
-
+ 
 export default App;
